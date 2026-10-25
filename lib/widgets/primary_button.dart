@@ -9,7 +9,7 @@ class PrimaryButton extends StatelessWidget {
   });
 
   final String label;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final IconData icon;
 
   @override
@@ -22,7 +22,9 @@ class PrimaryButton extends StatelessWidget {
         label: Text(label),
         style: FilledButton.styleFrom(
           minimumSize: const Size.fromHeight(56),
-          textStyle: const TextStyle(fontWeight: FontWeight.w600),
+          textStyle: const TextStyle(
+            fontWeight: FontWeight.w600,
+          ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
