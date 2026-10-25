@@ -59,4 +59,17 @@ class QuizProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  void selectAnswer(int index) {
+    if (!_hasStarted) return;
+
+    if (index < 0 || index >= currentQuestion.options.length) {
+      return;
+    }
+
+    if (_selectedAnswerIndex == index) return;
+
+    _selectedAnswerIndex = index;
+    notifyListeners();
+  }
 }
