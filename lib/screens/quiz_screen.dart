@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +17,7 @@ class QuizScreen extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
 
     final progress = (
-        (quiz.currentQuestionIndex + 1) / quiz.questionCount
+      (quiz.currentQuestionIndex + 1) / quiz.questionCount
     ).clamp(0.0, 1.0).toDouble();
 
     return Scaffold(
@@ -63,8 +62,8 @@ class QuizScreen extends StatelessWidget {
                                       .textTheme
                                       .titleLarge
                                       ?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                 ),
                                 Text(
                                   'FILM & SERIES TRIVIA',
@@ -72,9 +71,9 @@ class QuizScreen extends StatelessWidget {
                                       .textTheme
                                       .labelSmall
                                       ?.copyWith(
-                                    color: colors.onSurfaceVariant,
-                                    letterSpacing: 1,
-                                  ),
+                                        color: colors.onSurfaceVariant,
+                                        letterSpacing: 1,
+                                      ),
                                 ),
                               ],
                             ),
@@ -92,28 +91,27 @@ class QuizScreen extends StatelessWidget {
                             .textTheme
                             .headlineSmall
                             ?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
+                              fontWeight: FontWeight.w700,
+                            ),
                       ),
                       const SizedBox(height: 8),
                       Text(
                         'Semangat, ${quiz.playerName}!'
-                            ' Pilih jawaban yang paling tepat.',
+                        ' Pilih jawaban yang paling tepat.',
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium
                             ?.copyWith(
-                          color: colors.onSurfaceVariant,
-                          height: 1.6,
-                        ),
+                              color: colors.onSurfaceVariant,
+                              height: 1.6,
+                            ),
                       ),
 
                       const SizedBox(height: 24),
 
                       // Informasi progres.
                       Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             'PROGRES KUIS',
@@ -121,19 +119,19 @@ class QuizScreen extends StatelessWidget {
                                 .textTheme
                                 .labelLarge
                                 ?.copyWith(
-                              color: colors.onSurfaceVariant,
-                              letterSpacing: 0.8,
-                            ),
+                                  color: colors.onSurfaceVariant,
+                                  letterSpacing: 0.8,
+                                ),
                           ),
                           Text(
                             'SOAL ${quiz.currentQuestionIndex + 1}'
-                                ' DARI ${quiz.questionCount}',
+                            ' DARI ${quiz.questionCount}',
                             style: Theme.of(context)
                                 .textTheme
                                 .labelLarge
                                 ?.copyWith(
-                              fontWeight: FontWeight.w700,
-                            ),
+                                  fontWeight: FontWeight.w700,
+                                ),
                           ),
                         ],
                       ),
@@ -143,8 +141,7 @@ class QuizScreen extends StatelessWidget {
                         child: LinearProgressIndicator(
                           value: progress,
                           minHeight: 8,
-                          backgroundColor:
-                          colors.surfaceContainerHighest,
+                          backgroundColor: colors.surfaceContainerHighest,
                           color: colors.primary,
                         ),
                       ),
@@ -162,8 +159,7 @@ class QuizScreen extends StatelessWidget {
                           ),
                         ),
                         child: Column(
-                          crossAxisAlignment:
-                          CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
                               padding: const EdgeInsets.symmetric(
@@ -172,8 +168,7 @@ class QuizScreen extends StatelessWidget {
                               ),
                               decoration: BoxDecoration(
                                 color: colors.primaryContainer,
-                                borderRadius:
-                                BorderRadius.circular(100),
+                                borderRadius: BorderRadius.circular(100),
                               ),
                               child: Text(
                                 question.category.toUpperCase(),
@@ -181,23 +176,22 @@ class QuizScreen extends StatelessWidget {
                                     .textTheme
                                     .labelMedium
                                     ?.copyWith(
-                                  color: colors.onPrimaryContainer,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 0.7,
-                                ),
+                                      color: colors.onPrimaryContainer,
+                                      fontWeight: FontWeight.w700,
+                                      letterSpacing: 0.7,
+                                    ),
                               ),
                             ),
                             const SizedBox(height: 22),
                             Text(
-                              'PERTANYAAN '
-                                  '${quiz.currentQuestionIndex + 1}',
+                              'PERTANYAAN ${quiz.currentQuestionIndex + 1}',
                               style: Theme.of(context)
                                   .textTheme
                                   .labelMedium
                                   ?.copyWith(
-                                color: colors.onSurfaceVariant,
-                                letterSpacing: 0.8,
-                              ),
+                                    color: colors.onSurfaceVariant,
+                                    letterSpacing: 0.8,
+                                  ),
                             ),
                             const SizedBox(height: 10),
                             Text(
@@ -206,9 +200,9 @@ class QuizScreen extends StatelessWidget {
                                   .textTheme
                                   .headlineSmall
                                   ?.copyWith(
-                                fontWeight: FontWeight.w700,
-                                height: 1.35,
-                              ),
+                                    fontWeight: FontWeight.w700,
+                                    height: 1.35,
+                                  ),
                             ),
                             const SizedBox(height: 12),
                             Text(
@@ -217,8 +211,8 @@ class QuizScreen extends StatelessWidget {
                                   .textTheme
                                   .bodyMedium
                                   ?.copyWith(
-                                color: colors.onSurfaceVariant,
-                              ),
+                                    color: colors.onSurfaceVariant,
+                                  ),
                             ),
                           ],
                         ),
@@ -232,25 +226,26 @@ class QuizScreen extends StatelessWidget {
                             .textTheme
                             .labelLarge
                             ?.copyWith(
-                          color: colors.onSurfaceVariant,
-                          letterSpacing: 0.8,
-                        ),
+                              color: colors.onSurfaceVariant,
+                              letterSpacing: 0.8,
+                            ),
                       ),
                       const SizedBox(height: 14),
 
                       // Pilihan menggunakan widget reusable.
                       ...List.generate(
                         question.options.length,
-                            (index) {
+                        (index) {
                           return Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 12,
-                            ),
+                            padding: const EdgeInsets.only(bottom: 12),
                             child: QuizOptionCard(
                               index: index,
                               label: question.options[index],
-                              isSelected:
-                              quiz.selectedAnswerIndex == index,
+                              isSelected: quiz.selectedAnswerIndex == index,
+                              isCorrect: index == question.correctAnswerIndex,
+                              showResult: quiz.isAnswerConfirmed,
+                              enabled: !quiz.isAnswerConfirmed &&
+                                  !quiz.isQuizCompleted,
                               onTap: () {
                                 context
                                     .read<QuizProvider>()
@@ -261,48 +256,61 @@ class QuizScreen extends StatelessWidget {
                         },
                       ),
 
-                      const SizedBox(height: 8),
-
-                      // Informasi pilihan yang sedang aktif.
-                      Text(
-                        quiz.selectedAnswerIndex == null
-                            ? 'Ketuk salah satu pilihan untuk memilih jawaban.'
-                            : 'Jawabanmu sudah dipilih. '
-                            'Kamu masih bisa menggantinya.',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall
-                            ?.copyWith(
-                          color: colors.onSurfaceVariant,
+                      // Kartu hasil umpan balik jika jawaban sudah dikonfirmasi.
+                      if (quiz.isAnswerConfirmed) ...[
+                        const SizedBox(height: 8),
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: quiz.isCurrentAnswerCorrect
+                                ? Colors.green.withAlpha(22)
+                                : colors.error.withAlpha(22),
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(
+                              color: quiz.isCurrentAnswerCorrect
+                                  ? Colors.green.shade700
+                                  : colors.error,
+                            ),
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Icon(
+                                quiz.isCurrentAnswerCorrect
+                                    ? Icons.check_circle_rounded
+                                    : Icons.info_outline_rounded,
+                                color: quiz.isCurrentAnswerCorrect
+                                    ? Colors.green.shade700
+                                    : colors.error,
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: Text(
+                                  quiz.isCurrentAnswerCorrect
+                                      ? 'Benar! Kamu mendapatkan 1 poin. Skor saat ini: ${quiz.score}.'
+                                      : 'Belum tepat. Jawaban yang benar adalah "${question.options[question.correctAnswerIndex]}".',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                        height: 1.5,
+                                      ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
+                      ],
 
                       const SizedBox(height: 20),
 
-                      // Tahap ini belum memeriksa jawaban.
-                      PrimaryButton(
-                        label: 'Konfirmasi Jawaban',
-                        icon: Icons.check_rounded,
-                        onPressed: quiz.selectedAnswerIndex == null
-                            ? null
-                            : () {
-                          ScaffoldMessenger.of(context)
-                            ..hideCurrentSnackBar()
-                            ..showSnackBar(
-                              const SnackBar(
-                                behavior:
-                                SnackBarBehavior.floating,
-                                content: Text(
-                                  'Pilihan tersimpan. '
-                                      'Pengecekan jawaban dan '
-                                      'perpindahan soal dibuat '
-                                      'pada Hari 4.',
-                                ),
-                              ),
-                            );
-                        },
-                      ),
+                      // Tombol Aksi Utama
+                      _buildActionButton(context, quiz),
+
+                      const SizedBox(height: 12),
+
+                      // Keterangan Pembantu
+                      _buildActionHelperText(context, quiz),
 
                       const SizedBox(height: 24),
                     ],
@@ -313,6 +321,89 @@ class QuizScreen extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+
+  Widget _buildActionButton(BuildContext context, QuizProvider quiz) {
+    if (quiz.isQuizCompleted) {
+      return const PrimaryButton(
+        label: 'Kuis Selesai',
+        icon: Icons.check_circle_rounded,
+        onPressed: null,
+      );
+    }
+
+    if (!quiz.isAnswerConfirmed) {
+      return PrimaryButton(
+        label: 'Periksa Jawaban',
+        icon: Icons.check_rounded,
+        onPressed: quiz.selectedAnswerIndex == null
+            ? null
+            : () {
+                context.read<QuizProvider>().confirmAnswer();
+              },
+      );
+    }
+
+    // Jawaban sudah dikonfirmasi, lanjut ke soal berikutnya atau selesaikan kuis.
+    final isLastQuestion =
+        quiz.currentQuestionIndex == quiz.questionCount - 1;
+
+    return PrimaryButton(
+      label: isLastQuestion ? 'Selesaikan Kuis' : 'Soal Berikutnya',
+      icon: isLastQuestion
+          ? Icons.check_circle_rounded
+          : Icons.arrow_forward_rounded,
+      onPressed: () {
+        final provider = context.read<QuizProvider>();
+        final moved = provider.goToNextQuestion();
+
+        if (!moved) return;
+
+        if (isLastQuestion) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(
+                behavior: SnackBarBehavior.floating,
+                content: Text(
+                  'Kuis selesai! Skor akhir kamu: '
+                  '${provider.score}/${provider.questionCount}.',
+                ),
+              ),
+            );
+        }
+      },
+    );
+  }
+
+  Widget _buildActionHelperText(BuildContext context, QuizProvider quiz) {
+    final colors = Theme.of(context).colorScheme;
+    final isLastQuestion =
+        quiz.currentQuestionIndex == quiz.questionCount - 1;
+
+    String text;
+    if (quiz.isQuizCompleted) {
+      text =
+          'Kuis selesai! Skor akhir: ${quiz.score}/${quiz.questionCount}.';
+    } else if (quiz.isAnswerConfirmed) {
+      text = isLastQuestion
+          ? 'Jawaban sudah dinilai. Selesaikan kuis untuk melihat hasil akhir.'
+          : 'Jawaban sudah dinilai. Lanjutkan ke soal berikutnya.';
+    } else if (quiz.selectedAnswerIndex == null) {
+      text = 'Ketuk salah satu pilihan untuk memilih jawaban.';
+    } else {
+      text =
+          'Jawaban terpilih. Tekan Periksa Jawaban untuk melihat hasil.';
+    }
+
+    return Text(
+      text,
+      textAlign: TextAlign.center,
+      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: colors.onSurfaceVariant,
+            height: 1.5,
+          ),
     );
   }
 }
