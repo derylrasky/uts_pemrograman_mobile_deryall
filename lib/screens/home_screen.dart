@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'quiz_screen.dart';
 
 import '../core/utils/responsive.dart';
 import '../providers/quiz_provider.dart';
@@ -156,7 +157,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 label: 'Mulai Kuis',
                 icon: Icons.arrow_forward_rounded,
                 onPressed: () {
-                  final isValid = _formKey.currentState?.validate() ?? false;
+                  final isValid =
+                      _formKey.currentState?.validate() ?? false;
 
                   if (!isValid) return;
 
@@ -165,18 +167,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   if (!started) return;
 
-                  ScaffoldMessenger.of(context)
-                    ..hideCurrentSnackBar()
-                    ..showSnackBar(
-                      SnackBar(
-                        behavior: SnackBarBehavior.floating,
-                        content: Text(
-                          'Siap, ${provider.playerName}! Nama tersimpan. '
-                          'Halaman soal akan dihubungkan pada Hari 3.',
-                        ),
-                      ),
-                    );
+                  Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => const QuizScreen(),
+                    ),
+                  );
                 },
+
+
               ),
 
               const SizedBox(height: 20),
