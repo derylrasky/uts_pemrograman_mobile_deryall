@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'quiz_screen.dart';
 
 import '../core/utils/responsive.dart';
 import '../providers/quiz_provider.dart';
@@ -8,6 +7,7 @@ import '../widgets/app_logo.dart';
 import '../widgets/app_text_field.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/theme_toggle_button.dart';
+import 'quiz_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -138,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
               AppTextField(
                 initialValue: playerName,
                 label: 'Nama pemain',
-                hint: 'Contoh: Rendy',
+                hint: 'Contoh: Deryl',
                 onChanged: (value) {
                   context.read<QuizProvider>().setPlayerName(value);
                 },
@@ -173,8 +173,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   );
                 },
-
-
               ),
 
               const SizedBox(height: 20),
