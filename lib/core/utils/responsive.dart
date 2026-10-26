@@ -30,4 +30,10 @@ class Responsive {
     if (width >= mobileBreakpoint) return 900;
     return 560;
   }
+
+  static double readingContentMaxWidth(double width) {
+    if (width >= desktopBreakpoint) return 720;
+    if (width >= mobileBreakpoint) return 640;
+    return 560;
+  }
 }
