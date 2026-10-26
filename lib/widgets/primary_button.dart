@@ -21,9 +21,14 @@ class PrimaryButton extends StatelessWidget {
         icon: Icon(icon),
         label: Text(label),
         style: FilledButton.styleFrom(
+          backgroundColor: const Color(0xFFF7A501),
+          foregroundColor: const Color(0xFF23251D),
+          disabledBackgroundColor: const Color(0xFFE5E7E0),
+          disabledForegroundColor: const Color(0xFF9B9C92),
           minimumSize: const Size.fromHeight(56),
           textStyle: const TextStyle(
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w700,
+            fontSize: 15,
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),

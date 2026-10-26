@@ -3,33 +3,55 @@ import 'package:flutter/material.dart';
 class AppTheme {
   AppTheme._();
 
-  static const Color primaryColor = Color(0xFF7C3AED);
+  // PostHog Design System Colors from DESIGN (4).md
+  static const Color primaryYellow = Color(0xFFF7A501);
+  static const Color primaryPressed = Color(0xFFDD9001);
+  static const Color onPrimary = Color(0xFF23251D);
+  static const Color canvasCream = Color(0xFFEEEFE9);
+  static const Color surfaceCard = Color(0xFFFFFFFF);
+  static const Color inkCharcoal = Color(0xFF23251D);
+  static const Color bodyOlive = Color(0xFF4D4F46);
+  static const Color hairline = Color(0xFFBFC1B7);
+  static const Color surfaceSoft = Color(0xFFE5E7E0);
 
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
       fontFamily: 'Poppins',
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: primaryColor,
+      colorScheme: ColorScheme(
         brightness: Brightness.light,
+        primary: primaryYellow,
+        onPrimary: onPrimary,
+        primaryContainer: primaryYellow,
+        onPrimaryContainer: onPrimary,
+        secondary: primaryPressed,
+        onSecondary: onPrimary,
+        surface: surfaceCard,
+        onSurface: inkCharcoal,
+        onSurfaceVariant: bodyOlive,
+        outline: hairline,
+        outlineVariant: hairline,
+        error: const Color(0xFFCD4239),
+        onError: Colors.white,
       ),
-      scaffoldBackgroundColor: const Color(0xFFF8F7FC),
-      inputDecorationTheme: const InputDecorationTheme(
+      scaffoldBackgroundColor: canvasCream,
+      cardColor: surfaceCard,
+      inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: Color(0xFFF1EFF8),
-        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-        prefixIconColor: primaryColor,
+        fillColor: surfaceCard,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+        prefixIconColor: bodyOlive,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(16)),
-          borderSide: BorderSide.none,
+          borderRadius: const BorderRadius.all(Radius.circular(16)),
+          borderSide: BorderSide(color: hairline, width: 1),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(16)),
-          borderSide: BorderSide.none,
+          borderRadius: const BorderRadius.all(Radius.circular(16)),
+          borderSide: BorderSide(color: hairline, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(16)),
-          borderSide: BorderSide(color: primaryColor, width: 1.5),
+          borderRadius: const BorderRadius.all(Radius.circular(16)),
+          borderSide: BorderSide(color: primaryYellow, width: 2),
         ),
       ),
     );
@@ -39,27 +61,40 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       fontFamily: 'Poppins',
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: primaryColor,
+      colorScheme: ColorScheme(
         brightness: Brightness.dark,
+        primary: primaryYellow,
+        onPrimary: onPrimary,
+        primaryContainer: primaryYellow,
+        onPrimaryContainer: onPrimary,
+        secondary: primaryPressed,
+        onSecondary: onPrimary,
+        surface: const Color(0xFF23251D),
+        onSurface: const Color(0xFFFFFFFF),
+        onSurfaceVariant: const Color(0xFF9B9C92),
+        outline: const Color(0xFF4D4F46),
+        outlineVariant: const Color(0xFF4D4F46),
+        error: const Color(0xFFCD4239),
+        onError: Colors.white,
       ),
-      scaffoldBackgroundColor: const Color(0xFF12111A),
-      inputDecorationTheme: const InputDecorationTheme(
+      scaffoldBackgroundColor: const Color(0xFF181914),
+      cardColor: const Color(0xFF23251D),
+      inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: Color(0xFF242230),
-        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-        prefixIconColor: Color(0xFFC4B5FD),
-        border: OutlineInputBorder(
+        fillColor: const Color(0xFF2E3028),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+        prefixIconColor: const Color(0xFF9B9C92),
+        border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(16)),
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: Color(0xFF4D4F46), width: 1),
         ),
-        enabledBorder: OutlineInputBorder(
+        enabledBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(16)),
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: Color(0xFF4D4F46), width: 1),
         ),
-        focusedBorder: OutlineInputBorder(
+        focusedBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(16)),
-          borderSide: BorderSide(color: Color(0xFFC4B5FD), width: 1.5),
+          borderSide: BorderSide(color: primaryYellow, width: 2),
         ),
       ),
     );
