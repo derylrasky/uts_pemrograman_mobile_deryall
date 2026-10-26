@@ -7,6 +7,9 @@ class QuizOptionCard extends StatelessWidget {
     required this.label,
     required this.isSelected,
     required this.onTap,
+    this.isCorrect = false,
+    this.showResult = false,
+    this.enabled = true,
   });
 
   final int index;
@@ -14,20 +17,39 @@ class QuizOptionCard extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
 
+  final bool isCorrect;
+  final bool showResult;
+  final bool enabled;
+
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
 
-    final borderColor =
-    isSelected ? colors.primary : colors.outlineVariant;
+    final showCorrect = showResult && isCorrect;
+    final showIncorrect = showResult && isSelected && !isCorrect;
 
-    final backgroundColor =
-    isSelected ? colors.primaryContainer : colors.surface;
+    final Color borderColor = showCorrect
+        ? Colors.green.shade700
+        : showIncorrect
+        ? colors.error
+        : isSelected
+        ? colors.primary
+        : colors.outlineVariant;
 
-    final textColor =
-    isSelected ? colors.onPrimaryContainer : colors.onSurface;
+    final Color backgroundColor = showCorrect
+        ? Colors.green.withAlpha(24)
+        : showIncorrect
+        ? colors.error.withAlpha(20)
+        : isSelected
+        ? colors.primaryContainer
+        : colors.surface;
 
-    final letter = String.fromCharCode(65 + index);
+    final Color textColor =
+    isSelected && !showResult
+        ? colors.onPrimaryContainer
+        : colors.onSurface;
+
+    final String letter = String.fromCharCode(65 + index);
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 180),
@@ -36,14 +58,16 @@ class QuizOptionCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: borderColor,
-          width: isSelected ? 1.8 : 1,
+          width: showCorrect || showIncorrect || isSelected
+              ? 1.8
+              : 1,
         ),
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
-          onTap: onTap,
+          onTap: enabled ? onTap : null,
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Row(
@@ -53,7 +77,11 @@ class QuizOptionCard extends StatelessWidget {
                   height: 36,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: isSelected
+                    color: showCorrect
+                        ? Colors.green.shade700
+                        : showIncorrect
+                        ? colors.error
+                        : isSelected
                         ? colors.primary
                         : colors.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(11),
@@ -61,8 +89,8 @@ class QuizOptionCard extends StatelessWidget {
                   child: Text(
                     letter,
                     style: TextStyle(
-                      color: isSelected
-                          ? colors.onPrimary
+                      color: showCorrect || showIncorrect || isSelected
+                          ? Colors.white
                           : colors.onSurfaceVariant,
                       fontWeight: FontWeight.w600,
                     ),
@@ -74,21 +102,30 @@ class QuizOptionCard extends StatelessWidget {
                     label,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: textColor,
-                      fontWeight: isSelected
+                      fontWeight: isSelected || showCorrect
                           ? FontWeight.w600
                           : FontWeight.w400,
                     ),
                   ),
                 ),
-                if (isSelected)
+                if (showCorrect)
                   Icon(
                     Icons.check_circle_rounded,
-                    color: colors.primary,
+                    color: Colors.green.shade700,
+                  )
+                else if (showIncorrect)
+                  Icon(
+                    Icons.cancel_rounded,
+                    color: colors.error,
                   )
                 else
                   Icon(
-                    Icons.circle_outlined,
-                    color: colors.outlineVariant,
+                    isSelected
+                        ? Icons.radio_button_checked_rounded
+                        : Icons.radio_button_unchecked_rounded,
+                    color: isSelected
+                        ? colors.primary
+                        : colors.outlineVariant,
                   ),
               ],
             ),
