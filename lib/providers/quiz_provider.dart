@@ -90,6 +90,27 @@ class QuizProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Memilih dan langsung menilai jawaban (tanpa tombol konfirmasi kedua).
+
+  void answerQuestion(int index) {
+    if (!_hasStarted || _isAnswerConfirmed || _isQuizCompleted) {
+      return;
+    }
+
+    if (index < 0 || index >= currentQuestion.options.length) {
+      return;
+    }
+
+    _selectedAnswerIndex = index;
+    _isAnswerConfirmed = true;
+
+    if (isCurrentAnswerCorrect) {
+      _score++;
+    }
+
+    notifyListeners();
+  }
+
   // Memeriksa jawaban dan menambahkan skor jika benar.
   // Jawaban hanya bisa dinilai satu kali per pertanyaan.
 
