@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'screens/quiz_screen.dart';
+import 'screens/result_screen.dart';
 
 import 'core/theme/app_theme.dart';
 import 'providers/theme_provider.dart';
@@ -19,6 +21,10 @@ class ReelQuizApp extends StatelessWidget {
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
       home: const HomeScreen(),
+      routes: {
+        '/quiz': (_) => const QuizScreen(),
+        '/result': (_) => const ResultScreen(),
+      },
     );
   }
 }
