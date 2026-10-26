@@ -34,7 +34,7 @@ class QuizScreen extends StatelessWidget {
               child: Center(
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
-                    maxWidth: Responsive.contentMaxWidth(width),
+                    maxWidth: Responsive.readingContentMaxWidth(width),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -97,7 +97,7 @@ class QuizScreen extends StatelessWidget {
                       const SizedBox(height: 8),
                       Text(
                         'Semangat, ${quiz.playerName}!'
-                        ' Pilih jawaban yang paling tepat.',
+                        ' Ketuk pilihan untuk langsung menjawab.',
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium
@@ -232,7 +232,7 @@ class QuizScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 14),
 
-                      // Pilihan menggunakan widget reusable.
+                      // Pilihan menggunakan widget reusable. Langsung menjawab saat diketuk.
                       ...List.generate(
                         question.options.length,
                         (index) {
@@ -249,14 +249,14 @@ class QuizScreen extends StatelessWidget {
                               onTap: () {
                                 context
                                     .read<QuizProvider>()
-                                    .selectAnswer(index);
+                                    .answerQuestion(index);
                               },
                             ),
                           );
                         },
                       ),
 
-                      // Kartu hasil umpan balik jika jawaban sudah dikonfirmasi.
+                      // Kartu hasil umpan balik instan jika jawaban sudah dijawab.
                       if (quiz.isAnswerConfirmed) ...[
                         const SizedBox(height: 8),
                         Container(
@@ -326,52 +326,38 @@ class QuizScreen extends StatelessWidget {
 
   Widget _buildActionButton(BuildContext context, QuizProvider quiz) {
     if (quiz.isQuizCompleted) {
-      return const PrimaryButton(
-        label: 'Kuis Selesai',
-        icon: Icons.check_circle_rounded,
-        onPressed: null,
+      return PrimaryButton(
+        label: 'Lihat Hasil Kuis',
+        icon: Icons.emoji_events_rounded,
+        onPressed: () {
+          Navigator.of(context).pushReplacementNamed('/result');
+        },
       );
     }
 
     if (!quiz.isAnswerConfirmed) {
       return PrimaryButton(
-        label: 'Periksa Jawaban',
-        icon: Icons.check_rounded,
-        onPressed: quiz.selectedAnswerIndex == null
-            ? null
-            : () {
-                context.read<QuizProvider>().confirmAnswer();
-              },
+        label: 'Pilih salah satu jawaban',
+        icon: Icons.touch_app_rounded,
+        onPressed: null,
       );
     }
 
-    // Jawaban sudah dikonfirmasi, lanjut ke soal berikutnya atau selesaikan kuis.
+    // Jawaban sudah dijawab, lanjut ke soal berikutnya atau ke hasil.
     final isLastQuestion =
         quiz.currentQuestionIndex == quiz.questionCount - 1;
 
     return PrimaryButton(
-      label: isLastQuestion ? 'Selesaikan Kuis' : 'Soal Berikutnya',
+      label: isLastQuestion ? 'Lihat Hasil Kuis' : 'Soal Berikutnya',
       icon: isLastQuestion
-          ? Icons.check_circle_rounded
+          ? Icons.emoji_events_rounded
           : Icons.arrow_forward_rounded,
       onPressed: () {
         final provider = context.read<QuizProvider>();
         final moved = provider.goToNextQuestion();
 
-        if (!moved) return;
-
-        if (isLastQuestion) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                behavior: SnackBarBehavior.floating,
-                content: Text(
-                  'Kuis selesai! Skor akhir kamu: '
-                  '${provider.score}/${provider.questionCount}.',
-                ),
-              ),
-            );
+        if (isLastQuestion || provider.isQuizCompleted || !moved) {
+          Navigator.of(context).pushReplacementNamed('/result');
         }
       },
     );
@@ -388,13 +374,10 @@ class QuizScreen extends StatelessWidget {
           'Kuis selesai! Skor akhir: ${quiz.score}/${quiz.questionCount}.';
     } else if (quiz.isAnswerConfirmed) {
       text = isLastQuestion
-          ? 'Jawaban sudah dinilai. Selesaikan kuis untuk melihat hasil akhir.'
-          : 'Jawaban sudah dinilai. Lanjutkan ke soal berikutnya.';
-    } else if (quiz.selectedAnswerIndex == null) {
-      text = 'Ketuk salah satu pilihan untuk memilih jawaban.';
+          ? 'Jawaban sudah dinilai. Ketuk Lihat Hasil Kuis untuk melihat skor.'
+          : 'Jawaban sudah dinilai. Ketuk Soal Berikutnya.';
     } else {
-      text =
-          'Jawaban terpilih. Tekan Periksa Jawaban untuk melihat hasil.';
+      text = 'Ketuk salah satu pilihan di atas untuk langsung menjawab.';
     }
 
     return Text(
